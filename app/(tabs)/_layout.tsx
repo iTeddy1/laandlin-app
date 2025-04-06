@@ -11,7 +11,7 @@ import { HeartIcon, HomeIcon, SearchIcon, ShoppingCartIcon, User } from "lucide-
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>["name"]; icon: any; color: string }) {
-  return <Icon size="xl" className="text-red-500" as={props.icon} />;
+  return <Icon size="xl" style={{ color: props.color }} as={props.icon} />;
 }
 
 export default function TabLayout() {
@@ -20,7 +20,9 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "red ",
+        tabBarActiveTintColor: "black",
+        tabBarInactiveTintColor: "gray",
+
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
@@ -48,9 +50,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="search"
+        name="shop"
         options={{
-          title: "Search",
+          headerShown: false,
+          title: "Shop",
           tabBarIcon: ({ color }) => <TabBarIcon icon={SearchIcon} name="code" color={color} />,
         }}
       />

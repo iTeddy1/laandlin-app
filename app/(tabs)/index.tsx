@@ -1,36 +1,31 @@
-import { StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text } from "react-native";
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { View } from '@/components/Themed';
-import { Button, ButtonText } from '@/components/ui/button';
-import '../../global.css'
+import EditScreenInfo from "@/components/EditScreenInfo";
+import { View } from "@/components/Themed";
+import { Button, ButtonText } from "@/components/ui/button";
+import { VStack } from "@/components/ui/vstack";
+import { Box } from "@/components/ui/box";
+import HomeTitle from "@/components/home/title";
+import { Image } from "@/components/ui/image";
+import ProductCarousel from "@/components/home/product-carousel";
+import { sampleProducts } from "@/data/product";
 
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Text className='text-red-700 ' >Tab One</Text>
-      <Button>
-        <ButtonText>Button</ButtonText>
-      </Button>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <ScrollView className="bg-white">
+      <HomeTitle title="Discover" desc="Tuesday, 3 May" />
+      <VStack>
+        <Box>
+          <Image className="h-[200px] w-full" source={require("/assets/images/home/hero.png")} alt="image" />
+        </Box>
+        <HomeTitle title="Featured" desc="Best Selling Products" />
+        <ProductCarousel products={sampleProducts} />
+        <HomeTitle title="Featured" desc="Best Selling Products" />
+        <ProductCarousel products={sampleProducts} />
+        <HomeTitle title="Featured" desc="Best Selling Products" />
+        <ProductCarousel products={sampleProducts} />
+        {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
+      </VStack>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
