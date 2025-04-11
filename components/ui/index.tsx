@@ -16,3 +16,5 @@ export * from "./input";
 export * from "./text";
 export * from "./select";
 export * from "./view";
+export * from "./actionsheet";
+export * from "./modal";

@@ -1,4 +1,60 @@
 import { Product } from "@/types/Product";
+import { IWishlistItem } from "@/types/Wishlist";
+
+export const sampleWishlist: IWishlistItem[] = [
+  {
+    _id: "675289c4365032a2a9f79749",
+    name: "Avocado Romper for Baby Boy",
+    price: 42000,
+    salePrice: 2000,
+    sizes: [
+      { _id: "1224", size: "0 - 3M", price: 350000, salePrice: 315000, stockQuantity: 100 },
+      { _id: "12", size: "3 - 6M", price: 350000, salePrice: 315000, stockQuantity: 100 },
+      { _id: "132", size: "3 - 6M", price: 350000, salePrice: 315000, stockQuantity: 100 },
+      { _id: "122", size: "3 - 6M", price: 350000, salePrice: 315000, stockQuantity: 100 },
+      { _id: "123", size: "3 - 6M", price: 350000, salePrice: 315000, stockQuantity: 100 },
+    ],
+    colors: [],
+    slug: "turban-bow-clips-for-baby-girls",
+  }, {
+    _id: "675289c43650342a2a9f79749",
+    name: "Turban/Bow Clips for Baby Girls",
+    price: 42000,
+    salePrice: 2000,
+    sizes: [
+      { _id: "122", size: "0 - 3M", price: 350000, salePrice: 315000, stockQuantity: 100 },
+      { _id: "12", size: "3 - 6M", price: 350000, salePrice: 315000, stockQuantity: 100 },
+    ],    colors: [],
+    slug: "turban-bow-clips-for-baby-girls",
+  }, {
+    _id: "675289c14365032a2a9f79749",
+    name: "Turban/Bow Clips for Baby Girls",
+    price: 42000,
+    salePrice: 2000,
+    sizes: [
+      { _id: "122", size: "0 - 3M", price: 350000, salePrice: 315000, stockQuantity: 100 },
+      { _id: "12", size: "3 - 6M", price: 350000, salePrice: 315000, stockQuantity: 100 },
+    ],
+    colors: [],
+    slug: "turban-bow-clips-for-baby-girls",
+  }, {
+    _id: "675289c43265032a2a9f79749",
+    name: "Turban/Bow Clips for Baby Girls",
+    price: 42000,
+    salePrice: 2000,
+    sizes: [],
+    colors: [],
+    slug: "turban-bow-clips-for-baby-girls",
+  }, {
+    _id: "6275289c4365032a2a9f79749",
+    name: "Turban/Bow Clips for Baby Girls",
+    price: 42000,
+    salePrice: 2000,
+    sizes: [],
+    colors: [],
+    slug: "turban-bow-clips-for-baby-girls",
+  },
+];
 
 export const sampleProducts: Product[] = [
   {

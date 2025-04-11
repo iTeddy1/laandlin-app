@@ -32,7 +32,6 @@ const ProductDetailsScreen = () => {
   const handleAddToCart = () => {
     console.log("Adding to cart:", product.name, "size:", selectedSize, "quantity:", quantity);
   };
-
   const handleFavorite = () => {
     console.log("Adding to favorites:", product.name);
   };

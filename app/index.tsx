@@ -9,8 +9,11 @@ import HomeTitle from "@/components/home/title";
 import { Image } from "@/components/ui/image";
 import ProductCarousel from "@/components/home/product-carousel";
 import { sampleProducts } from "@/data/product";
+import { Actionsheet, ActionsheetBackdrop, ActionsheetContent, ActionsheetItem, ActionsheetItemText } from "@/components/ui";
+import React from "react";
 
-export default function TabOneScreen() {
+export default function HomeScreen() {
+
   return (
     <ScrollView className="bg-white">
       <HomeTitle title="Discover" desc="Tuesday, 3 May" />

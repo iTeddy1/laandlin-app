@@ -10,6 +10,7 @@ import ShopHeader from "@/components/shop/header";
 import { sampleCategories } from "@/data/category";
 import { CategoryTabs } from "@/components/shop/category-tabs";
 import { VStack } from "@/components/ui";
+import { WINDOW_HEIGHT } from "@/constants/window";
 
 export default function ShopScreen() {
   const insets = useSafeAreaInsets();
@@ -43,9 +44,10 @@ export default function ShopScreen() {
     }
     setFilteredProducts(results);
   }, [selectedCategories, availableCategories]);
+  console.log(insets)
 
   return (
-    <VStack className="flex-1 bg-white">
+    <VStack className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
       <ShopHeader
         onSearch={handleSearch}
         availableCategories={availableCategories}

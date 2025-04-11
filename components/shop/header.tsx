@@ -47,7 +47,7 @@ const ShopHeader: React.FC<ShopHeaderProps> = ({
   };
 
   return (
-    <View className="mt-[52px] border-b border-gray-200 bg-white px-[10px]">
+    <View className="border-b border-gray-200 bg-white px-[10px]">
       {!isFilterVisible &&
         (isSearchActive ? (
           // Thanh tìm kiếm toàn màn hình

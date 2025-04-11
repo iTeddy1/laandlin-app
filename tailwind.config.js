@@ -5,7 +5,6 @@ module.exports = {
   darkMode: process.env.DARK_MODE ? process.env.DARK_MODE : "media",
   content: [
     "./app/**/*.{html,js,jsx,ts,tsx}",
-    "./app/core-components/**/**/*.{html,js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
     "./app/hooks/**/*.{html,js,jsx,ts,tsx,mdx}",
   ],
