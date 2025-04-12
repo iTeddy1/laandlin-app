@@ -1,5 +1,5 @@
-import { Product } from "@/types/Product";
-import { IWishlistItem } from "@/types/Wishlist";
+import { Product } from "@/shared/interfaces/Product";
+import { IWishlistItem } from "@/shared/interfaces/Wishlist";
 
 export const sampleWishlist: IWishlistItem[] = [
   {
@@ -16,7 +16,8 @@ export const sampleWishlist: IWishlistItem[] = [
     ],
     colors: [],
     slug: "turban-bow-clips-for-baby-girls",
-  }, {
+  },
+  {
     _id: "675289c43650342a2a9f79749",
     name: "Turban/Bow Clips for Baby Girls",
     price: 42000,
@@ -24,9 +25,11 @@ export const sampleWishlist: IWishlistItem[] = [
     sizes: [
       { _id: "122", size: "0 - 3M", price: 350000, salePrice: 315000, stockQuantity: 100 },
       { _id: "12", size: "3 - 6M", price: 350000, salePrice: 315000, stockQuantity: 100 },
-    ],    colors: [],
+    ],
+    colors: [],
     slug: "turban-bow-clips-for-baby-girls",
-  }, {
+  },
+  {
     _id: "675289c14365032a2a9f79749",
     name: "Turban/Bow Clips for Baby Girls",
     price: 42000,
@@ -37,7 +40,8 @@ export const sampleWishlist: IWishlistItem[] = [
     ],
     colors: [],
     slug: "turban-bow-clips-for-baby-girls",
-  }, {
+  },
+  {
     _id: "675289c43265032a2a9f79749",
     name: "Turban/Bow Clips for Baby Girls",
     price: 42000,
@@ -45,7 +49,8 @@ export const sampleWishlist: IWishlistItem[] = [
     sizes: [],
     colors: [],
     slug: "turban-bow-clips-for-baby-girls",
-  }, {
+  },
+  {
     _id: "6275289c4365032a2a9f79749",
     name: "Turban/Bow Clips for Baby Girls",
     price: 42000,

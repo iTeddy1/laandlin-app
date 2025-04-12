@@ -20,7 +20,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { sampleProducts } from "@/data/product";
 import { formatCurrency } from "@/libs/functions";
 import { useLocalSearchParams } from "expo-router";
-import { WINDOW_WIDTH } from "@/constants/window";
+import { WINDOW_WIDTH } from "@/shared/constants/window";
 
 const ProductDetailsScreen = () => {
   const { slug } = useLocalSearchParams();

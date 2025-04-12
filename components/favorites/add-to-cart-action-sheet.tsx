@@ -14,8 +14,8 @@ import { Heading } from "@/components/ui/heading";
 import { VStack, HStack, Image, Box, Card } from "@/components/ui";
 import { Text } from "@/components/ui/text";
 import { ScrollView, View } from "react-native";
-import { Sizes } from "@/types/Product";
-import { IWishlistItem } from "@/types/Wishlist";
+import { Sizes } from "@/shared/interfaces/Product";
+import { IWishlistItem } from "@/shared/interfaces/Wishlist";
 
 interface AddToCartActionsheetProps {
   item: IWishlistItem | null;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Text, HStack, Pressable, VStack } from "@/components/ui";
-import { Category } from "@/types/Category";
-import { Product } from "@/types/Product";
+import { Category } from "@/shared/interfaces/Category";
+import { Product } from "@/shared/interfaces/Product";
 import { ScrollView } from "react-native";
 
 interface CategoryTabsProps {

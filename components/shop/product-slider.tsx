@@ -1,7 +1,7 @@
 import { ScrollView, Image } from "react-native";
 import { Box } from "../ui/box";
 import { Text } from "../Themed";
-import { Product } from "@/types/Product";
+import { Product } from "@/shared/interfaces/Product";
 
 type ProductSliderProps = {
   products: Product[];

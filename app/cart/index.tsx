@@ -1,7 +1,7 @@
 // app/favorite/index.tsx
-import FavoriteScreen from "@/screens/FavoriteScreen";
+import CartScreen from "@/screens/CartScreen";
 import { Redirect } from "expo-router";
 
 export default function Index() {
-  return <FavoriteScreen />;
+  return <CartScreen />;
 }

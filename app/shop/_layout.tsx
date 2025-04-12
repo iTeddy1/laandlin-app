@@ -5,10 +5,12 @@ import { useState } from "react";
 
 const ShopLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   return (
     <VStack className="flex-1 bg-white">
-      <Button><ButtonText>Open</ButtonText></Button>
+      <Button>
+        <ButtonText>Open</ButtonText>
+      </Button>
       <AddToCartActionsheet />
       <Stack
         screenOptions={{

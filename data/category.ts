@@ -1,4 +1,4 @@
-import { Category } from "@/types/Category";
+import { Category } from "@/shared/interfaces/Category";
 
 export const sampleCategories: Category[] = [
   { _id: "boys", name: "Boys" },
