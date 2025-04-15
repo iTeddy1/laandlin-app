@@ -27,10 +27,10 @@ export default function FavoriteItem({ item, onPress }: FavoriteItemProps) {
       </View>
       {1 && (
         <TouchableOpacity
-          className="absolute right-2 top-2"
+          className="absolute right-4 top-2 rounded-full bg-white p-2"
           onPress={() => console.log("Remove from favorites:", item._id)}
         >
-          <Icon as={Heart} size="md" color="red" />
+          <Icon as={Heart} size="md" color="black" />
         </TouchableOpacity>
       )}
     </TouchableOpacity>
