@@ -64,66 +64,72 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={DefaultTheme}>
-        <Tabs
-          screenOptions={{
-            tabBarActiveTintColor: "black",
-            tabBarInactiveTintColor: "gray",
-            headerShown: useClientOnlyValue(false, true),
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: "black",
+          tabBarInactiveTintColor: "gray",
+          headerShown: useClientOnlyValue(false, true),
+        }}
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: "Home",
+            tabBarIcon: ({ color }) => <TabBarIcon icon={HomeIcon} name="code" color={color} />,
+            headerRight: () => (
+              <Link href="/shop" asChild>
+                <Pressable>
+                  {({ pressed }) => (
+                    <FontAwesome
+                      name="info-circle"
+                      size={25}
+                      color={"#000"}
+                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                    />
+                  )}
+                </Pressable>
+              </Link>
+            ),
           }}
-        >
-          <Tabs.Screen
-            name="index"
-            options={{
-              title: "Home",
-              tabBarIcon: ({ color }) => <TabBarIcon icon={HomeIcon} name="code" color={color} />,
-              headerRight: () => (
-                <Link href="/shop" asChild>
-                  <Pressable>
-                    {({ pressed }) => (
-                      <FontAwesome
-                        name="info-circle"
-                        size={25}
-                        color={"#000"}
-                        style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                      />
-                    )}
-                  </Pressable>
-                </Link>
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="shop"
-            options={{
-              headerShown: false,
-              title: "Shop",
-              tabBarIcon: ({ color }) => <TabBarIcon icon={SearchIcon} name="code" color={color} />,
-            }}
-          />
-          <Tabs.Screen
-            name="favorite"
-            options={{
-              title: "Favorite",
-              headerShown: false,
-              tabBarIcon: ({ color }) => <TabBarIcon icon={HeartIcon} name="code" color={color} />,
-            }}
-          />
-          <Tabs.Screen
-            name="+not-found"
-            options={{
-              href: null
-            }}
-             />
+        />
+        <Tabs.Screen
+          name="shop"
+          options={{
+            headerShown: false,
+            title: "Shop",
+            tabBarIcon: ({ color }) => <TabBarIcon icon={SearchIcon} name="code" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="favorite"
+          options={{
+            title: "Favorite",
+            headerShown: false,
+            tabBarIcon: ({ color }) => <TabBarIcon icon={HeartIcon} name="code" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="cart"
+          options={{
+            title: "Cart",
+            headerShown: false,
+            tabBarIcon: ({ color }) => <TabBarIcon icon={ShoppingCartIcon} name="code" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="+not-found"
+          options={{
+            href: null,
+          }}
+        />
 
-{/* <Tabs.Screen
+        {/* <Tabs.Screen
             name="profile"
             options={{
               href: null
             }}
              /> */}
-             
-         
-        </Tabs>
+      </Tabs>
     </ThemeProvider>
   );
 }

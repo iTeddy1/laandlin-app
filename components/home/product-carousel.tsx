@@ -3,6 +3,7 @@ import { Box, HStack, Center, Image, Icon, Pressable, Card, VStack, Heading, Bad
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-react-native";
 import { formatCurrency } from "@/libs/functions";
+import { Link } from "expo-router";
 
 type Props = {
   products: any[];
@@ -15,7 +16,14 @@ const ProductCarousel = ({ products }: Props) => {
         <HStack space="md" className="w-full">
           {products.map((item, index) => {
             return (
-              <Box key={index} className="">
+              <Link
+                href={{
+                  pathname: "/shop/[slug]",
+                  params: { slug: item.slug },
+                }}
+                key={index}
+                className=""
+              >
                 <Card className="h-[350px] w-[250px] overflow-hidden rounded-lg bg-white p-0 shadow-md">
                   <View className="size-[250px] p-2">
                     <View className="relative">
@@ -53,7 +61,7 @@ const ProductCarousel = ({ products }: Props) => {
                     </VStack>
                   </View>
                 </Card>
-              </Box>
+              </Link>
             );
           })}
         </HStack>
