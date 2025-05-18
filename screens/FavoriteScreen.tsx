@@ -82,8 +82,7 @@ const FavoriteScreen = () => {
 
         {isEditing && selectedFavorites.length > 0 && (
           <TouchableOpacity
-          
-            className="m-4 items-center rounded-md bg-white  py-3"
+            className="m-4 items-center rounded-md bg-white py-3"
             onPress={() => {
               console.log("Removing selected favorites:", selectedFavorites);
             }}

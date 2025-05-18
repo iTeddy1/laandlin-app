@@ -89,7 +89,9 @@ const AddToCartActionsheet: React.FC<AddToCartActionsheetProps> = ({ item, onAdd
             className="mx-auto h-16 w-[90%] rounded-full bg-base-300 py-4"
             disabled={!selectedSize}
           >
-            <ButtonText size="lg" className="font-bold text-black">Add to Cart</ButtonText>
+            <ButtonText size="lg" className="font-bold text-black">
+              Add to Cart
+            </ButtonText>
           </Button>
         </VStack>
       </ActionsheetContent>

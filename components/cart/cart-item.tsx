@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/libs/functions";
-import {  Trash2 } from "lucide-react-native";
+import { Trash2 } from "lucide-react-native";
 import { TouchableOpacity } from "react-native";
 import { View, HStack, Text, VStack, Icon } from "../ui";
 import QuantitySelector from "./quantity-selector";
@@ -17,7 +17,7 @@ export function CartItem({ item, onPress }: CartItemProps) {
   const handleQuantityChange = (productId: string, newQuantity: number) => {
     // Logic to update item quantity in cart
     console.log("Update item with ID:", productId, "to new quantity:", newQuantity);
-  }
+  };
   return (
     <View className="border-b border-gray-200 py-4">
       <HStack space="md">

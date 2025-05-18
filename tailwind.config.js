@@ -45,7 +45,6 @@ module.exports = {
           700: "#575758",
           800: "#29292A",
         },
-
         // Success colors (green)
         success: {
           100: "#CFF2D8",
