@@ -13,27 +13,64 @@ import {
   ChevronDownIcon,
   SelectContent,
   VStack,
+  ButtonIcon,
+  ButtonSpinner,
+  ButtonGroup,
 } from "@/components/ui"; // Import từ Gluestack UI
 import { Heart, Share2 } from "lucide-react-native";
-
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { sampleProducts } from "@/data/product";
 import { formatCurrency } from "@/libs/functions";
 import { useLocalSearchParams } from "expo-router";
-import { WINDOW_WIDTH } from "@/constants/window";
+import { WINDOW_WIDTH } from "@/shared/constants/window";
+import { AddProductToCart, AddProductToCartSchema } from "@/schema/AddProductToCartSchema";
+import { useAppDispatch } from "@/store/hooks";
+import { addItemToCartAsync } from "@/store/reducers/cart/cartSlice";
+import SizeSelectActionsheet from "@/components/shop/size-select-action-sheet";
+import { Product } from "@/shared/interfaces/Product";
 
-const ProductDetailsScreen = () => {
-  const { slug } = useLocalSearchParams();
-  const product = sampleProducts.find((item) => item.slug === slug) || sampleProducts[1];
-  const insets = useSafeAreaInsets();
-  const [selectedSize, setSelectedSize] = useState(product.sizes?.[0]?.size || "");
-  const [quantity, setQuantity] = useState(1);
+export interface ProductDetailsScreenProps {
+  product: Product;
+}
 
-  const handleAddToCart = () => {
-    console.log("Adding to cart:", product.name, "size:", selectedSize, "quantity:", quantity);
+const ProductDetailsScreen = ({ product }: ProductDetailsScreenProps) => {
+  const [selectedSize, setSelectedSize] = useState<string>("");
+  const [isSizeSelectOpen, setIsSizeSelectOpen] = useState(false);
+  const [selectedColor, setSelectedColor] = useState<string>(product.colors[0].color);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AddProductToCart>({
+    resolver: zodResolver(AddProductToCartSchema),
+    defaultValues: {
+      productId: product._id,
+      size: selectedSize,
+      quantity: 1,
+      color: selectedColor,
+    },
+  });
+  console.log(errors);
+  const onSubmit: SubmitHandler<AddProductToCart> = (data) => {
+    const formData = {
+      productId: product._id,
+      size: selectedSize,
+      quantity: 1,
+      color: selectedColor,
+    };
+    console.log("Form data:", formData);
+    // dispatch(addItemToCartAsync(formData))
   };
+
   const handleFavorite = () => {
     console.log("Adding to favorites:", product.name);
+  };
+
+  const handleSelectSize = () => {
+    setIsSizeSelectOpen(true);
   };
 
   const handleShare = () => {
@@ -41,7 +78,7 @@ const ProductDetailsScreen = () => {
   };
 
   return (
-    <VStack className={`bg-white pt-[${insets.top}px] pb-[${insets.bottom}px]`}>
+    <VStack className={`bg-white`}>
       <ScrollView>
         {/* Product Images Carousel */}
         <ScrollView snapToAlignment="center" horizontal showsHorizontalScrollIndicator={false} className="mb-4">
@@ -73,57 +110,28 @@ const ProductDetailsScreen = () => {
             )}
           </View>
 
-          {/* Select Size */}
-          {/* {product.sizes && product.sizes.length > 0 && (
-            <View className="mb-4">
-              <Text className="font-semibold mb-2">Chọn Kích thước</Text>
-              <Select onValueChange={(value: string) => setSelectedSize(value)}>
-                <SelectTrigger className="rounded-md border border-gray-300 py-2 px-3">
-                  <SelectInput placeholder="Chọn kích thước" />
-                  <SelectIcon>
-                    <ChevronDownIcon color='black'/>
-                  </SelectIcon>
-                </SelectTrigger>
-                <SelectContent>
-                  {product.sizes.map((size) => (
-                    <SelectItem key={size._id} label={size.size} value={size.size}>
-                     
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </View>
-          )} */}
-
-          {/* Quantity */}
-          <View className="mb-4">
-            <Text className="mb-2 font-semibold">Số lượng</Text>
-            <View className="flex-row items-center space-x-4">
-              <TouchableOpacity
-                className="rounded-md border border-gray-300 p-2"
-                onPress={() => setQuantity(Math.max(1, quantity - 1))}
-              >
-                <Text>-</Text>
-              </TouchableOpacity>
-              <Text>{quantity}</Text>
-              <TouchableOpacity
-                className="rounded-md border border-gray-300 p-2"
-                onPress={() => setQuantity(quantity + 1)}
-              >
-                <Text>+</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          {/* Select Size Button */}
+          {product.sizes && (
+            <ButtonGroup>
+              <Button onPress={handleSelectSize} className="mb-4 h-14 rounded-full bg-base-300">
+                <ButtonText className="font-semibold text-black">
+                  {!selectedSize ? "Select Size" : selectedSize}
+                </ButtonText>
+                {/* <ButtonSpinner /> */}
+                <ButtonIcon as={ChevronDownIcon} size="lg" className="text-black" />
+              </Button>
+            </ButtonGroup>
+          )}
 
           {/* Add to Bag Button */}
-          <Button onPress={handleAddToCart} className="mb-4 h-14 rounded-full bg-base-300">
-            <ButtonText className="font-semibold text-black">Thêm vào Giỏ hàng</ButtonText>
+          <Button onPress={handleSubmit(onSubmit)} className="mb-4 h-14 rounded-full bg-base-300">
+            <ButtonText className="font-semibold text-black">Add to cart</ButtonText>
           </Button>
 
           {/* Favorite Button */}
           <Button variant="outline" onPress={handleFavorite} className="mb-4 h-14 rounded-full border border-gray-300">
             <View className="flex flex-row items-center gap-2">
-              <ButtonText className="font-semibold text-black">Yêu thích</ButtonText>
+              <ButtonText className="font-semibold text-black">Favorite</ButtonText>
               <Icon as={Heart} size="xl" className="text-black" />
             </View>
           </Button>
@@ -178,6 +186,17 @@ const ProductDetailsScreen = () => {
           <Text className="text-xs text-gray-700">Chia sẻ</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Size Selection */}
+      {product.sizes && (
+        <SizeSelectActionsheet
+          isOpen={isSizeSelectOpen}
+          onClose={() => setIsSizeSelectOpen(false)}
+          sizes={product.sizes}
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+        />
+      )}
     </VStack>
   );
 };

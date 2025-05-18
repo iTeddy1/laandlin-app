@@ -3,6 +3,7 @@ import { View, TouchableOpacity, TextInput, Text } from "react-native";
 import { Input, InputIcon, InputField, Icon, HStack } from "@/components/ui";
 import { Search, Filter, X } from "lucide-react-native";
 import FilterModal from "./product-filter";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface ShopHeaderProps {
   onSearch: (text: string) => void;
@@ -19,6 +20,8 @@ const ShopHeader: React.FC<ShopHeaderProps> = ({
   onCategoryChange,
   onApplyFilters,
 }) => {
+  const insets = useSafeAreaInsets();
+
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [isFilterVisible, setIsFilterVisible] = useState(false);

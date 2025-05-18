@@ -4,7 +4,7 @@ import { formatCurrency } from "@/libs/functions";
 import { Heart } from "lucide-react-native";
 import { Heading, HStack, Icon, VStack, Card } from "../ui";
 import { useRouter } from "expo-router";
-import { Product } from "@/types/Product";
+import { Product } from "@/shared/interfaces/Product";
 
 type ProductItemProps = {
   product: Product;

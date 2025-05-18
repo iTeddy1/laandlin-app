@@ -2,7 +2,7 @@ import "@/global.css";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Link, Stack, Tabs } from "expo-router";
+import { Link, Stack, Tabs, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -60,70 +60,91 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>["nam
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
+  const segment = useSegments();
+  const page = segment[segment.length - 1];
+  // create an array of list pages you want to hide the tab bar in
+  const pagesToHideTabBar = ["onboarding", "add-device"];
   return (
     <ThemeProvider value={DefaultTheme}>
-        <Tabs
-          screenOptions={{
-            tabBarActiveTintColor: "black",
-            tabBarInactiveTintColor: "gray",
-            headerShown: useClientOnlyValue(false, true),
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: "black",
+          tabBarInactiveTintColor: "gray",
+          headerShown: useClientOnlyValue(false, true),
+          tabBarStyle: {
+            display: pagesToHideTabBar.includes(page) ? "none" : "flex",
+          },
+        }}
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: "Home",
+            tabBarIcon: ({ color }) => <TabBarIcon icon={HomeIcon} name="code" color={color} />,
+            headerRight: () => (
+              <Link href="/shop" asChild>
+                <Pressable>
+                  {({ pressed }) => (
+                    <FontAwesome
+                      name="info-circle"
+                      size={25}
+                      color={"#000"}
+                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                    />
+                  )}
+                </Pressable>
+              </Link>
+            ),
           }}
-        >
-          <Tabs.Screen
-            name="index"
-            options={{
-              title: "Home",
-              tabBarIcon: ({ color }) => <TabBarIcon icon={HomeIcon} name="code" color={color} />,
-              headerRight: () => (
-                <Link href="/shop" asChild>
-                  <Pressable>
-                    {({ pressed }) => (
-                      <FontAwesome
-                        name="info-circle"
-                        size={25}
-                        color={"#000"}
-                        style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                      />
-                    )}
-                  </Pressable>
-                </Link>
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="shop"
-            options={{
-              headerShown: false,
-              title: "Shop",
-              tabBarIcon: ({ color }) => <TabBarIcon icon={SearchIcon} name="code" color={color} />,
-            }}
-          />
-          <Tabs.Screen
-            name="favorite"
-            options={{
-              title: "Favorite",
-              headerShown: false,
-              tabBarIcon: ({ color }) => <TabBarIcon icon={HeartIcon} name="code" color={color} />,
-            }}
-          />
-          <Tabs.Screen
-            name="+not-found"
-            options={{
-              href: null
-            }}
-             />
+        />
+        <Tabs.Screen
+          name="shop"
+          options={{
+            headerShown: false,
+            title: "Shop",
+            tabBarIcon: ({ color }) => <TabBarIcon icon={SearchIcon} name="code" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="favorite"
+          options={{
+            title: "Favorite",
+            headerShown: false,
+            tabBarIcon: ({ color }) => <TabBarIcon icon={HeartIcon} name="code" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="cart"
+          options={{
+            title: "Cart",
+            headerShown: false,
+            tabBarIcon: ({ color }) => <TabBarIcon icon={ShoppingCartIcon} name="code" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="+not-found"
+          options={{
+            href: null,
+          }}
+        />
 
-{/* <Tabs.Screen
-            name="profile"
-            options={{
-              href: null
-            }}
-             /> */}
-             
-         
-        </Tabs>
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: "Profile",
+            tabBarIcon: ({ color }) => <TabBarIcon icon={User} name="code" color={color} />,
+          }}
+        />
+
+        <Tabs.Screen
+          name="onboarding"
+          options={{
+            headerShown: false,
+            href: null,
+            tabBarShowLabel: false,
+          }}
+        />
+      </Tabs>
     </ThemeProvider>
   );
 }

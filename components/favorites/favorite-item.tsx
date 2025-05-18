@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/libs/functions";
-import {  Heart } from "lucide-react-native";
+import { Heart } from "lucide-react-native";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "../ui";
 
@@ -11,7 +11,7 @@ interface FavoriteItemProps {
   onPress: (item: { _id: string }) => void;
 }
 
-export default function FavoriteItem({item , onPress}: FavoriteItemProps) {
+export default function FavoriteItem({ item, onPress }: FavoriteItemProps) {
   console.log("FavoriteItem - item:", item); // Debug log
   return (
     <TouchableOpacity
@@ -20,7 +20,6 @@ export default function FavoriteItem({item , onPress}: FavoriteItemProps) {
       // style={{ opacity: isEditing && !selectedFavorites.includes(item._id) ? 0.6 : 1 }}
       // disabled={isEditing && !selectedFavorites.includes(item._id)}
     >
-     
       <Image className="size-[190px]" source={require("assets/images/shop/product.png")} resizeMode="cover" />
       <View className="flex flex-col justify-center gap-2">
         <Text className="font-semibold">{item.name}</Text>
@@ -28,10 +27,10 @@ export default function FavoriteItem({item , onPress}: FavoriteItemProps) {
       </View>
       {1 && (
         <TouchableOpacity
-          className="absolute right-2 top-2"
+          className="absolute right-4 top-2 rounded-full bg-white p-2"
           onPress={() => console.log("Remove from favorites:", item._id)}
         >
-          <Icon as={Heart} size="md" color="red" />
+          <Icon as={Heart} size="md" color="black" />
         </TouchableOpacity>
       )}
     </TouchableOpacity>

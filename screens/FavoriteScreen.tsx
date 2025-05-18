@@ -8,10 +8,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { sampleProducts, sampleWishlist } from "@/data/product";
 import { formatCurrency } from "@/libs/functions";
 import FavoriteItem from "@/components/favorites/favorite-item";
-import { Product } from "@/types/Product";
+import { Product } from "@/shared/interfaces/Product";
 import AddToCartActionsheet from "@/components/favorites/add-to-cart-action-sheet";
-import { IWishlistItem } from "@/types/Wishlist";
-import { CartItemAddRequest } from "@/types/Cart";
+import { IWishlistItem } from "@/shared/interfaces/Wishlist";
+import { CartItemAddRequest } from "@/shared/interfaces/Cart";
 import SuccessModal from "@/components/common/success-modal";
 
 const FavoriteScreen = () => {
@@ -82,7 +82,7 @@ const FavoriteScreen = () => {
 
         {isEditing && selectedFavorites.length > 0 && (
           <TouchableOpacity
-            className="m-4 items-center rounded-md bg-red-500 py-3"
+            className="m-4 items-center rounded-md bg-white py-3"
             onPress={() => {
               console.log("Removing selected favorites:", selectedFavorites);
             }}

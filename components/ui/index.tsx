@@ -18,3 +18,8 @@ export * from "./select";
 export * from "./view";
 export * from "./actionsheet";
 export * from "./modal";
+export * from "./alert-dialog";
+export * from "./divider";
+export * from "./link";
+export * from "./scroll-view";
+export * from "./form-control";

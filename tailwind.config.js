@@ -26,8 +26,8 @@ module.exports = {
           50: "#FEF9EE", // Màu vàng rất nhạt
           100: "#FCF2DD", // Nhạt hơn #f7e1ae
           200: "#F9E8C3", // Nhạt hơn một chút
-          300: "#F7E1AE", // Màu bạn cung cấp #f7e1ae
-          400: "#F9D06A", 
+          300: "#D8C994", // Màu bạn cung cấp #f7e1ae
+          400: "#A79063", 
           DEFAULT: "#F7C332", 
           600: "#E5B221", // Giữa #f7c332 và #d0a019 A79063
           700: "#D0A019", // Màu bạn cung cấp #d0a019
@@ -45,7 +45,6 @@ module.exports = {
           700: "#575758",
           800: "#29292A",
         },
-
         // Success colors (green)
         success: {
           100: "#CFF2D8",

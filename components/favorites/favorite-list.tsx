@@ -12,7 +12,7 @@ export default function FavoriteList({ items }: FavoriteListProps) {
       horizontal={false}
       numColumns={2}
       data={items}
-      renderItem={({ item }) => <FavoriteItem onPress={()=>{}}  item={item} />}
+      renderItem={({ item }) => <FavoriteItem onPress={() => {}} item={item} />}
       keyExtractor={(item) => item._id}
       contentContainerStyle={{ paddingBottom: 20 }}
     />

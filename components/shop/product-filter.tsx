@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/";
 import { X } from "lucide-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { WINDOW_HEIGHT } from "@/constants/window";
+import { WINDOW_HEIGHT } from "@/shared/constants/window";
 
 interface FilterModalProps {
   isOpen: boolean;
@@ -39,7 +39,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
   }
 
   return (
-    <View className=" relative z-50"  style={{ height: WINDOW_HEIGHT - insets.top - 52 }}>
+    <View className="relative z-50" style={{ height: WINDOW_HEIGHT - insets.top - 52 }}>
       {/* Header của Modal */}
       <View className="flex-row items-center justify-between border-b border-gray-200 p-4">
         <Heading size="md">Bộ lọc</Heading>
