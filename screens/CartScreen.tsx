@@ -186,7 +186,7 @@ const CartScreen = () => {
       }}
     >
       <GestureHandlerRootView className="flex-1 p-4">
-        <Heading size="lg" className="mb-4">
+        <Heading size="lg" className="mb-4 p-4">
           Cart ({cartItems.length})
         </Heading>
         {cartItems.length > 0 ? (
@@ -263,7 +263,6 @@ const CartItem: React.FC<CartItemProps> = ({ item, handleRemoveItem, handleQuant
           onPress={() => {
             swipeableRef.current?.close();
             console.log("Yêu thích:", item._id);
-            // Gọi logic add to favorites ở đây nếu có
           }}
           style={{ width: 80 }}
         >
