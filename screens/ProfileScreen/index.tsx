@@ -4,7 +4,6 @@ import {
   Text,
   Heading,
   VStack,
-  Link,
   Icon,
   Pressable,
   Divider,
@@ -24,10 +23,10 @@ import {
 import { ScrollView } from "react-native";
 import LogoutAlertDialog from "@/components/profile/logout-alert-dialog";
 import { Navigator } from "expo-router";
+import { Link } from "expo-router";
 
 const ProfileScreen = ({ isActive }: any) => {
   const [openLogoutAlertDialog, setOpenLogoutAlertDialog] = React.useState(false);
-
 
   return (
     <ScrollView className="bg-white" style={{ display: isActive ? "flex" : "none" }}>
@@ -69,12 +68,12 @@ const ProfileCard = () => {
         <VStack>
           <Text>Henry Stan</Text>
           <Link href="/profile/edit" className="flex-row items-center space-x-1">
-            <LinkText
+            <Text
               size="sm"
               className="text-typography-500 no-underline hover:text-typography-500 active:text-typography-500"
             >
               Show Profile
-            </LinkText>
+            </Text>
           </Link>
         </VStack>
       </HStack>

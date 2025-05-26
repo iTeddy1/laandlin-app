@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Modal } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, Modal } from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import {
   Button,
   FormControl,
@@ -18,24 +18,27 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-} from '@/components/ui'; // Adjust import path if needed
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+  FormControlLabelText,
+} from "@/components/ui";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // Zod schema for profile edit form
 const profileSchema = z.object({
-  fullName: z.string().min(2, 'Tên đầy đủ phải có ít nhất 2 ký tự'),
-  phone: z.string().regex(/^[0-9]{10}$/, 'Số điện thoại không hợp lệ (phải có 10 chữ số)'),
+  fullName: z.string().min(2, "Tên đầy đủ phải có ít nhất 2 ký tự"),
+  phone: z.string().regex(/^[0-9]{10}$/, "Số điện thoại không hợp lệ (phải có 10 chữ số)"),
 });
 
 // Zod schema for change password modal
-const passwordSchema = z.object({
-  currentPassword: z.string().min(6, 'Mật khẩu hiện tại phải có ít nhất 6 ký tự'),
-  newPassword: z.string().min(6, 'Mật khẩu mới phải có ít nhất 6 ký tự'),
-  confirmNewPassword: z.string().min(6, 'Xác nhận mật khẩu mới phải có ít nhất 6 ký tự'),
-}).refine((data) => data.newPassword === data.confirmNewPassword, {
-  message: 'Mật khẩu mới và xác nhận mật khẩu không khớp',
-  path: ['confirmNewPassword'],
-});
+const passwordSchema = z
+  .object({
+    currentPassword: z.string().min(6, "Mật khẩu hiện tại phải có ít nhất 6 ký tự"),
+    newPassword: z.string().min(6, "Mật khẩu mới phải có ít nhất 6 ký tự"),
+    confirmNewPassword: z.string().min(6, "Xác nhận mật khẩu mới phải có ít nhất 6 ký tự"),
+  })
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: "Mật khẩu mới và xác nhận mật khẩu không khớp",
+    path: ["confirmNewPassword"],
+  });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
 type PasswordFormData = z.infer<typeof passwordSchema>;
@@ -51,8 +54,8 @@ const EditProfileScreen = () => {
   } = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      fullName: 'Nguyễn Văn A', // Example initial value
-      phone: '0901234567', // Example initial value
+      fullName: "Nguyễn Văn A", // Example initial value
+      phone: "0901234567", // Example initial value
     },
   });
 
@@ -66,12 +69,12 @@ const EditProfileScreen = () => {
   });
 
   const onSubmitProfile = (data: ProfileFormData) => {
-    console.log('Profile Data Submitted:', data);
+    console.log("Profile Data Submitted:", data);
     // Implement your profile update logic here
   };
 
   const onSubmitPassword = (data: PasswordFormData) => {
-    console.log('Password Data Submitted:', data);
+    console.log("Password Data Submitted:", data);
     // Implement your password change logic here
     setIsPasswordModalVisible(false);
     resetPasswordForm();
@@ -89,23 +92,20 @@ const EditProfileScreen = () => {
   return (
     <View className="flex-1 bg-white p-4" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
       <Heading size="lg" className="mb-6 text-center">
-        Chỉnh sửa thông tin cá nhân
+        <Text>Chỉnh sửa thông tin cá nhân </Text>
       </Heading>
 
       {/* Full Name Input */}
-      <FormControl isInvalid={!!profileErrors.fullName} className='mb-2'>
-        <FormControlLabel>Tên đầy đủ</FormControlLabel>
+      <FormControl isInvalid={!!profileErrors.fullName} className="mb-2">
+        <FormControlLabel>
+          <FormControlLabelText>Tên đầy đủ</FormControlLabelText>
+        </FormControlLabel>
         <Controller
           control={profileControl}
-          rules={{ required: 'Vui lòng nhập tên đầy đủ' }}
+          rules={{ required: "Vui lòng nhập tên đầy đủ" }}
           render={({ field: { onChange, onBlur, value } }) => (
             <Input>
-              <InputField
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="Nhập tên đầy đủ"
-              />
+              <InputField onBlur={onBlur} onChangeText={onChange} value={value} placeholder="Nhập tên đầy đủ" />
             </Input>
           )}
           name="fullName"
@@ -118,11 +118,13 @@ const EditProfileScreen = () => {
       </FormControl>
 
       {/* Phone Number Input */}
-      <FormControl isInvalid={!!profileErrors.phone} className='mb-2'>
-        <FormControlLabel>Số điện thoại</FormControlLabel>
+      <FormControl isInvalid={!!profileErrors.phone} className="mb-2">
+        <FormControlLabel>
+          <FormControlLabelText>Số điện thoại</FormControlLabelText>
+        </FormControlLabel>
         <Controller
           control={profileControl}
-          rules={{ required: 'Vui lòng nhập số điện thoại' }}
+          rules={{ required: "Vui lòng nhập số điện thoại" }}
           render={({ field: { onChange, onBlur, value } }) => (
             <Input>
               <InputField
@@ -144,32 +146,33 @@ const EditProfileScreen = () => {
       </FormControl>
 
       {/* Change Password Button */}
-      <TouchableOpacity
-        className="bg-gray-100 rounded-md py-3 items-center mb-6"
-        onPress={openPasswordModal}
-      >
-        <Text className="text-blue-500 font-semibold">Đổi mật khẩu</Text>
+      <TouchableOpacity className="mb-6 items-center rounded-md bg-gray-100 py-3" onPress={openPasswordModal}>
+        <Text className="font-semibold text-blue-500">Đổi mật khẩu</Text>
       </TouchableOpacity>
 
       {/* Save Profile Button */}
-      <Button onPress={handleProfileSubmit(onSubmitProfile)} isDisabled={!isProfileValid} className="bg-blue-500 rounded-md py-3">
-        <Text className="text-white font-bold text-lg">Lưu thay đổi</Text>
-      </Button>
+      <TouchableOpacity onPress={handleProfileSubmit(onSubmitProfile)} className="rounded-md bg-blue-500 py-3">
+        <Text className="text-lg font-bold text-white">Lưu thay đổi</Text>
+      </TouchableOpacity>
 
       {/* Change Password Modal */}
       <UIModal isOpen={isPasswordModalVisible} onClose={closePasswordModal}>
         <ModalBackdrop />
-        <ModalContent className="rounded-xl p-4 w-11/12 max-w-md">
+        <ModalContent className="w-11/12 max-w-md rounded-xl p-4">
           <ModalHeader>
-            <Heading size="md">Đổi mật khẩu</Heading>
+            <Heading size="md">
+              <Text>Đổi mật khẩu</Text>
+            </Heading>
           </ModalHeader>
           <ModalBody>
             {/* Current Password Input */}
-            <FormControl isInvalid={!!passwordErrors.currentPassword} className='mb-2'>
-              <FormControlLabel>Mật khẩu hiện tại</FormControlLabel>
+            <FormControl isInvalid={!!passwordErrors.currentPassword} className="mb-2">
+              <FormControlLabel>
+                <FormControlLabelText>Mật khẩu hiện tại</FormControlLabelText>
+              </FormControlLabel>
               <Controller
                 control={passwordControl}
-                rules={{ required: 'Vui lòng nhập mật khẩu hiện tại' }}
+                rules={{ required: "Vui lòng nhập mật khẩu hiện tại" }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Input>
                     <InputField
@@ -191,11 +194,13 @@ const EditProfileScreen = () => {
             </FormControl>
 
             {/* New Password Input */}
-            <FormControl isInvalid={!!passwordErrors.newPassword} className='mb-2'>
-              <FormControlLabel>Mật khẩu mới</FormControlLabel>
+            <FormControl isInvalid={!!passwordErrors.newPassword} className="mb-2">
+              <FormControlLabel>
+                <FormControlLabelText>Mật khẩu mới</FormControlLabelText>
+              </FormControlLabel>
               <Controller
                 control={passwordControl}
-                rules={{ required: 'Vui lòng nhập mật khẩu mới' }}
+                rules={{ required: "Vui lòng nhập mật khẩu mới" }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Input>
                     <InputField
@@ -217,11 +222,13 @@ const EditProfileScreen = () => {
             </FormControl>
 
             {/* Confirm New Password Input */}
-            <FormControl isInvalid={!!passwordErrors.confirmNewPassword} className='mb-2'>
-              <FormControlLabel>Xác nhận mật khẩu mới</FormControlLabel>
+            <FormControl isInvalid={!!passwordErrors.confirmNewPassword} className="mb-2">
+              <FormControlLabel>
+                <FormControlLabelText>Xác nhận mật khẩu mới</FormControlLabelText>
+              </FormControlLabel>
               <Controller
                 control={passwordControl}
-                rules={{ required: 'Vui lòng xác nhận mật khẩu mới' }}
+                rules={{ required: "Vui lòng xác nhận mật khẩu mới" }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Input>
                     <InputField
@@ -246,7 +253,11 @@ const EditProfileScreen = () => {
             <Button variant="outline" onPress={closePasswordModal} className="rounded-md">
               <Text>Hủy</Text>
             </Button>
-            <Button onPress={handlePasswordSubmit(onSubmitPassword)} isDisabled={!isPasswordValid} className="bg-blue-500 rounded-md">
+            <Button
+              onPress={handlePasswordSubmit(onSubmitPassword)}
+              isDisabled={!isPasswordValid}
+              className="rounded-md bg-blue-500"
+            >
               <Text className="text-white">Lưu mật khẩu</Text>
             </Button>
           </ModalFooter>
