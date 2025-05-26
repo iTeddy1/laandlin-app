@@ -1,10 +1,9 @@
-// app/favorite/_layout.tsx
 import { Stack } from "expo-router";
 import { VStack } from "../../components/ui/vstack";
 
-export default function FavoriteLayout() {
+export default function OnboardingLayout() {
   return (
-    <VStack className="flex-1 bg-red-100">
+    <VStack className="flex-1">
       <Stack
         screenOptions={{
           headerShown: false,

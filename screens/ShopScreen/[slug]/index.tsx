@@ -36,7 +36,6 @@ export interface ProductDetailsScreenProps {
 }
 
 const ProductDetailsScreen = ({ product }: ProductDetailsScreenProps) => {
-  const insets = useSafeAreaInsets();
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [isSizeSelectOpen, setIsSizeSelectOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState<string>(product.colors[0].color);
@@ -52,9 +51,9 @@ const ProductDetailsScreen = ({ product }: ProductDetailsScreenProps) => {
       size: selectedSize,
       quantity: 1,
       color: selectedColor,
-    }
+    },
   });
-  console.log(errors)
+  console.log(errors);
   const onSubmit: SubmitHandler<AddProductToCart> = (data) => {
     const formData = {
       productId: product._id,
@@ -79,7 +78,7 @@ const ProductDetailsScreen = ({ product }: ProductDetailsScreenProps) => {
   };
 
   return (
-    <VStack className={`bg-white pt-[${insets.top}px] pb-[${insets.bottom}px]`}>
+    <VStack className={`bg-white`}>
       <ScrollView>
         {/* Product Images Carousel */}
         <ScrollView snapToAlignment="center" horizontal showsHorizontalScrollIndicator={false} className="mb-4">
@@ -113,16 +112,14 @@ const ProductDetailsScreen = ({ product }: ProductDetailsScreenProps) => {
 
           {/* Select Size Button */}
           {product.sizes && (
-            <ButtonGroup >
+            <ButtonGroup>
               <Button onPress={handleSelectSize} className="mb-4 h-14 rounded-full bg-base-300">
-
-              <ButtonText className="font-semibold text-black">
-                {!selectedSize ? "Select Size" : selectedSize}
-              </ButtonText>
-              {/* <ButtonSpinner /> */}
-              <ButtonIcon  as={ChevronDownIcon} size="lg" className="text-black" />
+                <ButtonText className="font-semibold text-black">
+                  {!selectedSize ? "Select Size" : selectedSize}
+                </ButtonText>
+                {/* <ButtonSpinner /> */}
+                <ButtonIcon as={ChevronDownIcon} size="lg" className="text-black" />
               </Button>
-
             </ButtonGroup>
           )}
 

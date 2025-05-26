@@ -26,6 +26,7 @@ import {
   TouchableOpacity as GHTouchableOpacity, // Renamed to avoid conflict
 } from "react-native-gesture-handler";
 import Animated, { Extrapolation, interpolate, SharedValue, useAnimatedStyle } from "react-native-reanimated";
+import { EmptyCart } from "@/components/cart/empty-cart";
 
 // Dummy Cart Data based on ICartItem
 const initialCartData: ICartItem[] = [
@@ -113,6 +114,7 @@ const CartScreen = () => {
   const [cartItems, setCartItems] = useState<ICartItem[]>(initialCartData);
   const [isRemoveVisible, setIsRemoveVisible] = useState(false);
   const [itemToRemoveId, setItemToRemoveId] = useState<string | null>(null);
+
   const calculateSubTotal = () => {
     return cartItems.reduce((sum, item) => sum + (item.salePrice > 0 ? item.salePrice : item.price) * item.quantity, 0);
   };
@@ -140,43 +142,6 @@ const CartScreen = () => {
       setItemToRemoveId(null);
     }
   };
-  const renderCartItem = ({ item }: { item: ICartItem }) => (
-    <Card className="border-b border-gray-200 py-4">
-      <Link href={{ pathname: `/shop/[slug]`, params: { slug: item.slug } }} className="">
-        <View className="flex w-full flex-row gap-4">
-          {/* Placeholder for Image - You'll need to fetch and display the image based on productId or a dedicated image field */}
-          <Box className="w-fit rounded-md bg-gray-100">
-            <Image
-              className="h-[154px] w-[154px]"
-              alt={item.color.color}
-              source={require("assets/images/shop/product.png")}
-              resizeMode="cover"
-            />
-          </Box>
-
-          <Box className="">
-            <Text className="font-semibold">{item.name}</Text>
-            {item.size && <Text className="text-sm text-gray-600">Size: {item.size.size}</Text>}
-            {item.salePrice > 0 ? (
-              <HStack space="xs">
-                <Text className="text-sm text-red-500">{formatCurrency(item.salePrice)}</Text>
-                <Text className="text-xs text-gray-400 line-through">{formatCurrency(item.price)}</Text>
-              </HStack>
-            ) : (
-              <Text className="text-sm text-gray-800">{formatCurrency(item.price)}</Text>
-            )}
-            <QuantitySelector
-              currentQuantity={item.quantity}
-              onQuantityChange={(newQuantity) => handleQuantityChange(item._id, newQuantity)}
-            />
-          </Box>
-        </View>
-      </Link>
-      <TouchableOpacity className="size-[18px]" onPress={() => handleRemoveItem(item._id)}>
-        <Icon as={Trash2} size="md" color="black" />
-      </TouchableOpacity>
-    </Card>
-  );
 
   return (
     <View
@@ -186,37 +151,45 @@ const CartScreen = () => {
       }}
     >
       <GestureHandlerRootView className="flex-1 p-4">
-        <Heading size="lg" className="mb-4">
+        <Heading size="lg" className="mb-4 p-4">
           Cart ({cartItems.length})
         </Heading>
-        {cartItems.length > 0 ? (
-          <FlatList
-            data={cartItems}
-            keyExtractor={(item) => item._id}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <CartItem item={item} handleRemoveItem={handleRemoveItem} handleQuantityChange={handleQuantityChange} />
-            )}
-          />
+        {cartItems.length !== 0 ? (
+          <>
+            <FlatList
+              data={cartItems}
+              keyExtractor={(item) => item._id}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <CartItem item={item} handleRemoveItem={handleRemoveItem} handleQuantityChange={handleQuantityChange} />
+              )}
+            />
+            <VStack>
+              <HStack className="mt-4 pt-4">
+                <Text className="font-semibold">Subtotal:</Text>
+                <Text className="font-semibold">{formatCurrency(calculateSubTotal())}</Text>
+              </HStack>
+              <HStack className="mt-2 border-t border-gray-200 pt-4">
+                <Text className="font-semibold">Shipping:</Text>
+                <Text className="font-semibold">{formatCurrency(0)}</Text>
+              </HStack>
+            </VStack>
+          </>
         ) : (
-          <Text className="text-gray-500">Giỏ hàng của bạn đang trống.</Text>
+          <EmptyCart />
         )}
-        <VStack>
-          <HStack className="mt-4 border-t border-gray-200 pt-4">
-            <Text className="font-semibold">Tổng cộng:</Text>
-            <Text className="font-semibold">{formatCurrency(calculateSubTotal())}</Text>
-          </HStack>
-          <HStack className="mt-2 border-t border-gray-200 pt-4">
-            <Text className="font-semibold">Phí vận chuyển:</Text>
-            <Text className="font-semibold">{formatCurrency(0)}</Text>
-          </HStack>
-        </VStack>
       </GestureHandlerRootView>
 
-      {cartItems.length > 0 && (
+      {cartItems.length > 0 ? (
         <View className="border-t border-gray-200 p-4">
           <Button size="md" className="h-16 rounded-full bg-black">
             <ButtonText className="font-semibold text-white">Checkout</ButtonText>
+          </Button>
+        </View>
+      ) : (
+        <View className="border-t border-gray-200 p-4">
+          <Button size="md" className="h-16 rounded-full bg-black">
+            <ButtonText className="font-semibold text-white">Go to shop</ButtonText>
           </Button>
         </View>
       )}
@@ -256,21 +229,18 @@ const CartItem: React.FC<CartItemProps> = ({ item, handleRemoveItem, handleQuant
 
   const renderRightActions = () => {
     return (
-      <View style={{ width: 160 }} className="flex flex-row items-start justify-start bg-pink-500">
-        {/* Nút Yêu thích */}
+      <View style={{ width: 160 }} className="flex flex-row items-start justify-start bg-gray-300">
         <TouchableOpacity
-          className="flex h-full w-[80px] items-center justify-center bg-pink-500"
+          className="flex h-full w-[80px] items-center justify-center border bg-base-100"
           onPress={() => {
             swipeableRef.current?.close();
             console.log("Yêu thích:", item._id);
-            // Gọi logic add to favorites ở đây nếu có
           }}
           style={{ width: 80 }}
         >
           <Icon as={Heart} size="md" color="black" className="" />
         </TouchableOpacity>
 
-        {/* Nút Xóa */}
         <TouchableOpacity
           className="flex h-full w-[80px] items-center justify-center bg-red-500"
           onPress={() => {
@@ -296,7 +266,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, handleRemoveItem, handleQuant
         console.log("Đã đóng"); // khi vuốt ngược lại bên trái
       }}
     >
-      <Card className="border-b border-gray-200 py-4">
+      <Card className="gap-4 border-b border-gray-200 py-4">
         <Link
           href={{ pathname: `/shop/[slug]`, params: { slug: item.slug } }}
           className="flex w-full flex-row justify-between gap-4"
@@ -314,21 +284,23 @@ const CartItem: React.FC<CartItemProps> = ({ item, handleRemoveItem, handleQuant
             <Box className="ml-4">
               <Text className="font-semibold">{item.name}</Text>
               {item.size && <Text className="text-sm text-gray-600">Size: {item.size.size}</Text>}
-              {item.salePrice > 0 ? (
-                <HStack space="xs">
-                  <Text className="text-sm text-red-500">{formatCurrency(item.salePrice)}</Text>
-                  <Text className="text-xs text-gray-400 line-through">{formatCurrency(item.price)}</Text>
-                </HStack>
-              ) : (
-                <Text className="text-sm text-gray-800">{formatCurrency(item.price)}</Text>
-              )}
             </Box>
           </HStack>
         </Link>
-        <QuantitySelector
-          currentQuantity={item.quantity}
-          onQuantityChange={(newQuantity) => handleQuantityChange(item._id, newQuantity)}
-        />
+        <HStack className="flex-row items-center justify-between">
+          <QuantitySelector
+            currentQuantity={item.quantity}
+            onQuantityChange={(newQuantity) => handleQuantityChange(item._id, newQuantity)}
+          />
+          {item.salePrice > 0 ? (
+            <HStack space="xs">
+              <Text className="text-sm text-red-500">{formatCurrency(item.salePrice)}</Text>
+              <Text className="text-xs text-gray-400 line-through">{formatCurrency(item.price)}</Text>
+            </HStack>
+          ) : (
+            <Text className="text-sm text-gray-800">{formatCurrency(item.price)}</Text>
+          )}
+        </HStack>
       </Card>
     </ReanimatedSwipeable>
   );

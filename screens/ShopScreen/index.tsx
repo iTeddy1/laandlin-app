@@ -41,9 +41,8 @@ export default function ShopScreen() {
     setFilteredProducts(results);
   }, [selectedCategories, availableCategories]);
 
-   
   return (
-    <VStack className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
+    <VStack className="flex-1 bg-white pt-12" style={{ paddingTop: insets.top }}>
       <ShopHeader
         onSearch={handleSearch}
         availableCategories={availableCategories}
